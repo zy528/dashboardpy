@@ -1,1 +1,1 @@
-# dashboardpy
+# django dashboard
