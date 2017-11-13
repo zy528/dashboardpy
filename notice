@@ -1,0 +1,7 @@
+python manage.py startproject  name #新建一个项目
+python manage.py startapp app_name #新建一个app
+python manage.py makemigrations # 数据库创建更改的文件
+python manage.py migrate # 将生成的py文件应用到数据库
+python manage.py flush #清空数据库
+python manage.py shell # 获得一个djago环境
+python manage.py dbshell #Django 会自动进入在settings.py中设置的数据库
