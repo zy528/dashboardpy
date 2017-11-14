@@ -7,7 +7,7 @@ from dashboardpy.datas import GetData
 # Create your views here.
 def index(request):
     getdata = GetData()
-    result = getdata.getuser()
+    result = getdata.getdailyincome()
     for i in range(len(result)):
         print(result[i])
 
