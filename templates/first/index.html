@@ -5,15 +5,29 @@
     <title>Title</title>
     <script src="/static/js/jquery-3.2.1.min.js"></script>
     <script src="/static/js/echarts.js"></script>
+    <script src="/static/js/dailyincome.js"></script>
+     <style>
+    .mtd{
+        width: 1200px;
+        height:400px;
+        top:20px
+    }
+    </style>
 </head>
 <body>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-    <h2>{{ data }}</h2>
-    <div id="main" style="width: 600px;height:400px;"></div>
+    <div id="daily" style="width: 600px;height:400px;"></div>
+    <div id="mtd" class="mtd"></div>
 
     <script type="text/javascript">
         // 基于准备好的dom，初始化echarts实例
-        var myChart = echarts.init(document.getElementById('main'));
+        var datas = {{ daily|safe }}
+        var mtd = {{ mtd|safe }}
+        var dailyChart = echarts.init(document.getElementById('daily'));
+        var mtdChart = echarts.init(document.getElementById('mtd'));
+        dailyChart.setOption(getdailydata(datas));
+        mtdChart.setOption(getmtddata(mtd));
+
     </script>
 </body>
 </html>

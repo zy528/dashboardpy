@@ -1,31 +1,24 @@
 /**
- * 
+ * 每日各收入类型金额走势
  */
-getpvuvdatas = function(datas){
-    var xdata = new Array();
-	var data1 = new Array();
-	var data2 = new Array();
-	var data3 = new Array();
-	var data4 = new Array();
-	var data5 = new Array();
-	var data6 = new Array();
-	var data7 = new Array();
-	var data8 = new Array();
+getdailydata = function(datas){
     var result = {
     		title: {
-    			text: '生长曲线pvuv'
+    			text: '每日各收入类型金额走势',
+				x:'center'
     		},
     		tooltip: {
     			trigger: 'axis'
     		},
     		legend: {
-    			data:['个人主页PV','个人主页UV','宝宝信息页面PV','宝宝信息页面UV','录入数据页面PV','录入数据页面UV','生长曲线页面PV','生长曲线页面UV'],
-    			type:'plain'
+    			data:['会员卡充值','消费金额'],
+    			type:'plain',
+				bottom: '0'
     		},
     		grid: {
     			left: '3%',
     			right: '4%',
-    			bottom: '3%',
+    			bottom: '9%',
     			containLabel: true
     		},
     		toolbox: {
@@ -34,65 +27,127 @@ getpvuvdatas = function(datas){
     				magicType: {type: ['line', 'bar']}
     			}
     		},
-    		yAxis: {
-    			type: 'value'
-    		},
-
-    		xAxis:{
+    		xAxis:[
+    			{
     			type: 'category',
-    			boundaryGap: false,
-    			data:datas.tjtime
-    		},
+    			//boundaryGap: false,
+    			data:datas.xdata
+    			}
+			],
+    		yAxis:[
+    			 {
+    				type: 'value'
+    			 }
+			],
     		series: [
     		         {
-    		        	 name:'个人主页PV',
-    		        	 type:'line',
-    		        	 data:data1
+    		        	 name:'会员卡充值',
+    		        	 type:'bar',
+    		        	 stack: 'true',
+    		        	 data:datas.xfmoney
     		         },
     		         {
-    		        	 name:'个人主页UV',
-    		        	 type:'line',
-    		        	 data:data2
-    		         },
-    		         {
-    		        	 name:'宝宝信息页面PV',
-    		        	 type:'line',
-    		        	 data:data3
-    		         },
-    		         {
-    		        	 name:'宝宝信息页面UV',
-    		        	 type:'line',
-    		        	 data:data4
-    		         },
-    		         {
-    		        	 name:'录入数据页面PV',
-    		        	 type:'line',
-    		        	 data:data5
-    		         },
-    		         {
-    		        	 name:'录入数据页面UV',
-    		        	 type:'line',
-    		        	 data:data6
-    		         },
-    		         {
-    		        	 name:'生长曲线页面PV',
-    		        	 type:'line',
-    		        	 data:data7
-    		         },
-    		         {
-    		        	 name:'生长曲线页面UV',
-    		        	 type:'line',
-    		        	 data:data8
+    		        	 name:'消费金额',
+    		        	 type:'bar',
+    		        	 stack: 'true',
+    		        	 data:datas.vipmoney
     		         }
     		         ]
-
     };
-     
-    
-  
-    
     return result;
-} 
+}
+
+/**
+ * mtd目标值情况
+ */
+getmtddata = function(mtd){
+    var result = {
+    		title: {
+    			text: '会员卡销售额MTD进度'
+				//left:'35%'
+    		},
+    		tooltip : {
+                formatter: "{a}:{c}"
+    		},
+    		grid: {
+    			left: '3%',
+    			right: '4%',
+    			bottom: '-20%',
+    			containLabel: true
+    		},
+    		toolbox: {
+        		feature: {
+            		restore: {},
+            		saveAsImage: {}
+       			}
+   			 },
+        series:  [{
+            name: 'MTD销售额',
+            max: mtd.mtdtotal,
+            type: 'gauge',
+            center: ['25%', '50%'],
+            axisLine: {
+                width: 20,
+                show: true,
+                lineStyle: {
+                    width: 30,
+                    shadowBlur: 0,
+                    color: [[0.3, '#6ced91'],[0.7, '#06a8fd'],[1, '#fe6b7d']]
+                }
+            },
+            detail: {
+                formatter:parseInt((mtd.mtdnow/mtd.mtdtotal)*100)+"%",
+                textStyle: {
+                    fontSize: 20,
+                    color: "#f30311"
+                }
+            },
+            title : {
+                textStyle: {       // 其余属性默认使用全局文本样式，详见TEXTSTYLE
+                    fontWeight: 'bolder',
+                    fontSize: 15
+                },
+                offsetCenter: [0, '-110%']
+            },
+            data: [{value: mtd.mtdnow, name: '深圳海德门诊销售额'}]
+        },
+                {
+                    name: 'MTD销售额',
+                    max: mtd.mtdtotal,
+                    center: ['60%', '50%'],
+                    type: 'gauge',
+                    axisLine: {
+                        width: 20,
+                        show: true,
+                        lineStyle: {
+                            width: 30,
+                            shadowBlur: 0,
+                            color: [[0.3, '#6ced91'],[0.7, '#06a8fd'],[1, '#fe6b7d']]
+                        }
+                    },
+                    detail: {
+                        formatter:parseInt((mtd.mtdnow/mtd.mtdtotal)*100)+"%",
+                        textStyle: {
+                            fontSize: 20,
+                            color: "#f30311"
+                        }
+                    },
+                    title:{
+                        textStyle: {       // 其余属性默认使用全局文本样式，详见TEXTSTYLE
+                            fontWeight: 'bolder',
+                            fontSize: 15
+                        },
+                        offsetCenter: [0, '-110%']
+                    },
+                    data: [{
+                        value: mtd.mtdnow,
+                        name: '上海丽晟门诊销售额'
+                    }]
+                }
+			]
+    };
+    return result;
+}
 
 
 

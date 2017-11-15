@@ -78,11 +78,21 @@ WSGI_APPLICATION = 'dashboardpy.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'd_easyhin_stat_ret',
+        'USER':'root',
+        'PASSWORD':'welcome123',
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
+        'CHARSET':'utf8',
+    },
+    'd_easyhin_his': {
+        'ENGINE': 'django.db.backends.mysql',
         'NAME': 'd_easyhin_his',
         'USER':'root',
         'PASSWORD':'welcome123',
         'HOST': '127.0.0.1',
         'PORT': '3306',
+        'CHARSET':'utf8',
     }
 }
 
