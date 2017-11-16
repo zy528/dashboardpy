@@ -6,18 +6,47 @@
     <script src="/static/js/jquery-3.2.1.min.js"></script>
     <script src="/static/js/echarts.js"></script>
     <script src="/static/js/dailyincome.js"></script>
+    <link href="/static/css/common.css" rel="stylesheet" type="text/css" />
      <style>
     .mtd{
         width: 1200px;
         height:400px;
         top:20px
     }
+    .mtdsaler{
+        width: 1200px;
+        height:400px;
+        top:20px
+    }
+
+
     </style>
 </head>
 <body>
-    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-    <div id="daily" style="width: 600px;height:400px;"></div>
+ <a href="#" onclick="getdailydata('total')" class="button blue small">总收入</a>
+ <a href="#" onclick="getdailydata('hd')" class="button blue small">海德店收入</a>
+ <a href="#" onclick="getdailydata('ls')" class="button blue small">丽晟店收入</a>
+
+    <div id="daily" style="width: 600px;height:400px;">
+    </div>
     <div id="mtd" class="mtd"></div>
+     <div id="mtdsaler" class="mtdsaler">
+         <p style="font-size: 1.05em"><b>各门店健康顾问销售MTD数据</b></p>
+         <table border='1' cellpadding='0' cellspacing='0' width='100%' style='text-align:center;'>
+             </tr>
+
+                        <tr style="background-color: rgba(124,140,164,0.17)">
+                        <td><b>门店</b></td>
+                        <td><b>员工姓名</b></td>
+                        <td><b>月目标</b></td>
+                        <td><b>月累计</b></td>
+                        <td><b>完成率</b></td>
+                        </tr>
+                        {{ mtdsalerstr|safe }}
+                    </table>
+
+
+     </div>
 
     <script type="text/javascript">
         // 基于准备好的dom，初始化echarts实例
@@ -27,6 +56,19 @@
         var mtdChart = echarts.init(document.getElementById('mtd'));
         dailyChart.setOption(getdailydata(datas));
         mtdChart.setOption(getmtddata(mtd));
+    </script>
+    <script type="text/javascript">
+
+     function getdailydata(typename){
+         $.ajax({
+             url: "/daily/getdailydata",
+             type:'post',
+             data:{typename:typename},
+             datatype:'json',
+             success: function(){
+             }});
+
+     }
 
     </script>
 </body>

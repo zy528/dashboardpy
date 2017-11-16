@@ -83,7 +83,7 @@ getmtddata = function(mtd){
    			 },
         series:  [{
             name: 'MTD销售额',
-            max: mtd.mtdtotal,
+            max: mtd.mtdtotal2,
             type: 'gauge',
             center: ['25%', '50%'],
             axisLine: {
@@ -96,7 +96,7 @@ getmtddata = function(mtd){
                 }
             },
             detail: {
-                formatter:parseInt((mtd.mtdnow/mtd.mtdtotal)*100)+"%",
+                formatter:parseInt((mtd.mtdnow2/mtd.mtdtotal2)*100)+"%",
                 textStyle: {
                     fontSize: 20,
                     color: "#f30311"
@@ -109,11 +109,11 @@ getmtddata = function(mtd){
                 },
                 offsetCenter: [0, '-110%']
             },
-            data: [{value: mtd.mtdnow, name: '深圳海德门诊销售额'}]
+            data: [{value: mtd.mtdnow2, name: mtd.mtdname2+'销售额'}]
         },
                 {
                     name: 'MTD销售额',
-                    max: mtd.mtdtotal,
+                    max: mtd.mtdtotal1,
                     center: ['60%', '50%'],
                     type: 'gauge',
                     axisLine: {
@@ -126,7 +126,7 @@ getmtddata = function(mtd){
                         }
                     },
                     detail: {
-                        formatter:parseInt((mtd.mtdnow/mtd.mtdtotal)*100)+"%",
+                        formatter:parseInt((mtd.mtdnow1/mtd.mtdtotal1)*100)+"%",
                         textStyle: {
                             fontSize: 20,
                             color: "#f30311"
@@ -140,8 +140,8 @@ getmtddata = function(mtd){
                         offsetCenter: [0, '-110%']
                     },
                     data: [{
-                        value: mtd.mtdnow,
-                        name: '上海丽晟门诊销售额'
+                        value: mtd.mtdnow1,
+                        name:mtd.mtdname1+'销售额'
                     }]
                 }
 			]

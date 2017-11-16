@@ -34,16 +34,36 @@ class GetData():
         return self.jdbc(sql,cursor)
     def getMTDtotal(self):
         cursor = connections['default'].cursor()
-        sql ='''SELECT SUM(tmp.total)
+        sql ='''SELECT
+                SUM(tmp.total)
                 ,SUM(tmp.target)
+                ,f_division 
                 FROM (
-                SELECT
+		        SELECT
                 a.f_saler AS saler,
                 SUM(a.f_total_money) AS total,
                 a.f_sales_money_target AS target
+                ,b.f_division
                 FROM
                 t_views_ccic_saler_info a LEFT JOIN t_views_ccc_user b ON a.f_saler = b.f_user_name
                 WHERE
                 f_crt_date >=DATE_FORMAT(CURDATE(),'%Y-%m-01') AND f_crt_date < DATE_ADD(DATE_FORMAT(CURDATE(),'%Y-%m-%d'),INTERVAL 1 DAY)
-                AND b.f_division = '深圳海德门诊部' GROUP BY f_saler) AS tmp '''
+                GROUP BY f_saler,b.f_division
+                ) AS tmp  GROUP BY f_division '''
         return self.jdbc(sql,cursor)
+
+    def getmtdsaler(self):
+        cursor = connections['default'].cursor()
+        sql = '''SELECT
+		        b.f_division
+                ,a.f_saler AS saler
+                ,a.f_sales_money_target AS target
+                ,SUM(a.f_total_money) AS total
+                ,CONCAT(IFNULL(CONVERT((SUM(a.f_total_money)/a.f_sales_money_target*100),DECIMAL(10,2)),0),'%')
+                FROM
+                t_views_ccic_saler_info a LEFT JOIN t_views_ccc_user b ON a.f_saler = b.f_user_name
+                WHERE
+                f_crt_date >=DATE_FORMAT(CURDATE(),'%Y-%m-01') AND f_crt_date < DATE_ADD(DATE_FORMAT(CURDATE(),'%Y-%m-%d'),INTERVAL 1 DAY)
+                GROUP BY f_saler,b.f_division
+                ORDER BY b.f_division'''
+        return self.jdbc(sql, cursor)
