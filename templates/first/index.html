@@ -2,35 +2,35 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name=”viewport” content=”width=device-width, initial-scale=1″ />
     <title>Title</title>
     <script src="/static/js/jquery-3.2.1.min.js"></script>
     <script src="/static/js/echarts.js"></script>
     <script src="/static/js/dailyincome.js"></script>
     <link href="/static/css/common.css" rel="stylesheet" type="text/css" />
-     <style>
-    .mtd{
-        width: 1200px;
-        height:400px;
-        top:20px
-    }
-    .mtdsaler{
-        width: 1200px;
-        height:400px;
-        top:20px
-    }
 
-
-    </style>
 </head>
-<body>
- <a href="#" onclick="getdailydata('total')" class="button blue small">总收入</a>
- <a href="#" onclick="getdailydata('hd')" class="button blue small">海德店收入</a>
- <a href="#" onclick="getdailydata('ls')" class="button blue small">丽晟店收入</a>
-
-    <div id="daily" style="width: 600px;height:400px;">
+<hr>
+    <div class="heading"><h1>医信科技有限公司</h1></div>
+        <hr>
+<div class="buttonclass">
+    <a href="#" onclick="getdaily('total')" class="button blue small">总收入</a>
+    <a href="#" onclick="getdaily('hd')" class="button blue small">海德店收入</a>
+    <a href="#" onclick="getdaily('ls')" class="button blue small">丽晟店收入</a>
+</div>
+    <div class="container">
+        <div id="zr" class="zr">
+            <div style=" padding-top:6%">
+                <span style="font-size:1.6rem">{{ riqi|safe }}营业总收入</span>
+                <br><br>
+                 <span style="font-size:5rem;color:red">￥{{ money|safe }}</span>
+            </div>
+        </div>
+        <div id="daily" class="daily"></div>
     </div>
     <div id="mtd" class="mtd"></div>
-     <div id="mtdsaler" class="mtdsaler">
+
+    <div id="mtdsaler" class="mtdsaler">
          <p style="font-size: 1.05em"><b>各门店健康顾问销售MTD数据</b></p>
          <table border='1' cellpadding='0' cellspacing='0' width='100%' style='text-align:center;'>
              </tr>
@@ -44,32 +44,33 @@
                         </tr>
                         {{ mtdsalerstr|safe }}
                     </table>
-
-
      </div>
+
 
     <script type="text/javascript">
         // 基于准备好的dom，初始化echarts实例
-        var datas = {{ daily|safe }}
-        var mtd = {{ mtd|safe }}
-        var dailyChart = echarts.init(document.getElementById('daily'));
-        var mtdChart = echarts.init(document.getElementById('mtd'));
-        dailyChart.setOption(getdailydata(datas));
-        mtdChart.setOption(getmtddata(mtd));
-    </script>
-    <script type="text/javascript">
 
-     function getdailydata(typename){
+            var datas = {{ daily|safe }};
+            var mtd = {{ mtd|safe }};
+            var dailyChart = echarts.init(document.getElementById('daily'));
+            var mtdChart = echarts.init(document.getElementById('mtd'));
+            dailyChart.setOption(getdailydata(datas));
+            mtdChart.setOption(getmtddata(mtd));
+
+
+
+        function getdaily(typename){
          $.ajax({
-             url: "/daily/getdailydata",
+             url: "/daily/getdailydata/",
              type:'post',
              data:{typename:typename},
              datatype:'json',
-             success: function(){
+             success: function(data){
+                 dailyChart.setOption(getdailydata(JSON.parse(data)),true);
+                 //console.log(getdailydata(JSON.parse(data)))
              }});
-
      }
-
     </script>
+
 </body>
 </html>

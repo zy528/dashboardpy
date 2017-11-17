@@ -5,3 +5,17 @@ python manage.py migrate # 将生成的py文件应用到数据库
 python manage.py flush #清空数据库
 python manage.py shell # 获得一个djago环境
 python manage.py dbshell #Django 会自动进入在settings.py中设置的数据库
+
+
+
+pip install uwsgi
+
+yum install python-devel #安装python 包
+
+
+ uwsgi --http :8001   --wsgi-file test.py
+
+
+
+ iptables -F
+  iptables -P INPUT ACCEPT

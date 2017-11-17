@@ -4,7 +4,7 @@
 getdailydata = function(datas){
     var result = {
     		title: {
-    			text: '每日各收入类型金额走势',
+    			text:datas.spotname+ "每日各收入类型金额走势",
 				x:'center'
     		},
     		tooltip: {
@@ -16,8 +16,7 @@ getdailydata = function(datas){
 				bottom: '0'
     		},
     		grid: {
-    			left: '3%',
-    			right: '4%',
+
     			bottom: '9%',
     			containLabel: true
     		},
@@ -30,7 +29,6 @@ getdailydata = function(datas){
     		xAxis:[
     			{
     			type: 'category',
-    			//boundaryGap: false,
     			data:datas.xdata
     			}
 			],
@@ -44,13 +42,23 @@ getdailydata = function(datas){
     		        	 name:'会员卡充值',
     		        	 type:'bar',
     		        	 stack: 'true',
-    		        	 data:datas.xfmoney
+    		        	 data:datas.xfmoney,
+                         itemStyle: {
+                             normal: {
+                                 color: '#13b5ff'
+                             }
+                        }
     		         },
     		         {
     		        	 name:'消费金额',
     		        	 type:'bar',
     		        	 stack: 'true',
-    		        	 data:datas.vipmoney
+    		        	 data:datas.vipmoney,
+                         itemStyle: {
+                             normal: {
+                                 color: '#f32a33'
+                             }
+                        }
     		         }
     		         ]
     };
