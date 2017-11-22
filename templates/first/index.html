@@ -13,7 +13,7 @@
 <hr>
     <div class="heading"><h1>医信科技有限公司</h1></div>
         <hr>
-<div class="buttonclass">
+<div id="buttonclass" class="buttonclass">
     <a href="#" onclick="getdaily('total')" class="button blue small">总收入</a>
     <a href="#" onclick="getdaily('hd')" class="button blue small">海德店收入</a>
     <a href="#" onclick="getdaily('ls')" class="button blue small">丽晟店收入</a>
@@ -46,9 +46,19 @@
                     </table>
      </div>
 
+<div id="test" class="mtd"></div>
 
     <script type="text/javascript">
         // 基于准备好的dom，初始化echarts实例
+
+           //console.log(document.body.clientHeight)
+           $('#mtd').height($(document.body).height()*0.35)
+           $('#daily').height($(document.body).height()*0.35)
+           $('#zr').height($(document.body).height()*0.35)
+           $('#buttonclass').height($(document.body).height()*0.04)
+           $('#mtdsaler').height($(document.body).height()*0.20)
+
+           //console.log($(document.body).height()*0.35)
 
             var datas = {{ daily|safe }};
             var mtd = {{ mtd|safe }};
@@ -56,6 +66,9 @@
             var mtdChart = echarts.init(document.getElementById('mtd'));
             dailyChart.setOption(getdailydata(datas));
             mtdChart.setOption(getmtddata(mtd));
+
+            var testchart = echarts.init(document.getElementById('test'));
+            testchart.setOption(gettest(datas));
 
 
 

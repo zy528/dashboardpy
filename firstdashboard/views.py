@@ -14,22 +14,25 @@ def index(request):
     xdata = []
     xfmoney = []
     vipmoney = []
+    totalmoney = []
     mtdsalerstr = ''
     for i in dailyresult:
         str1 = str(i[0])[8:10] + '日'
         xdata.append(str1)
         xfmoney.append(int(i[1]))
         vipmoney.append(int(i[2]))
+        totalmoney.append(int(i[3]))
 
     for i in mtdsaler:
         mtdsalerstr += '<tr><td>'+i[0]+'</td><td>'+i[1]+'</td><td>'+str(int(i[2]))+'</td><td>'+str(int(i[3]))+'</td><td>'+str(i[4])+'</td><tr>'
 
-    dailyjson = {'spotname':'总','xdata':xdata,'xfmoney':xfmoney,'vipmoney':vipmoney}
+    dailyjson = {'spotname':'总','xdata':xdata,'xfmoney':xfmoney,'vipmoney':vipmoney,'totalmoney':totalmoney}
+    print(dailyjson)
     mtdjson = {'mtdnow1':int(mtdtotal[0][0]),'mtdtotal1':int(mtdtotal[0][1]),'mtdname1':mtdtotal[0][2],'mtdnow2':int(mtdtotal[1][0]),'mtdtotal2':int(mtdtotal[1][1]),'mtdname2':mtdtotal[1][2]}
     riqi = '11月16日'
     money = 50000
     if len(zrtotal) != 0:
-        riqi = str(zrtotal[0][0])[6:8]+'月'+str(zrtotal[0][0])[8:10]+'日'
+        riqi = str(zrtotal[0][0])[5:7]+'月'+str(zrtotal[0][0])[8:10]+'日'
         money = int(zrtotal[0][1])
     daily = json.dumps(dailyjson)
     mtd = json.dumps(mtdjson)

@@ -10,6 +10,9 @@ python manage.py dbshell #Django 会自动进入在settings.py中设置的数据
 
 pip install uwsgi
 
+
+pip install Django
+pip install mysql-python
 yum install python-devel #安装python 包
 
 
@@ -19,3 +22,8 @@ yum install python-devel #安装python 包
 
  iptables -F
   iptables -P INPUT ACCEPT
+
+
+  部署过程
+  1.修改setting debug=false
+  2.数据库连接地址

@@ -7,6 +7,7 @@ class GetData():
             results = cursor.fetchall()
             return results
         except:
+            print(cursor.execute(sql))
             print "Error: unable to fecth data"
 
     #每日收入
@@ -14,7 +15,9 @@ class GetData():
         cursor = connections['d_easyhin_his'].cursor()
         sql=""" SELECT tmp.tmpdate AS tjtime
                 ,tmp.wtkmoney+tmp.wuzimoney AS total
-                ,tmp.vipmoney FROM (
+                ,tmp.vipmoney 
+                ,tmp.wtkmoney+tmp.wuzimoney+tmp.vipmoney 
+                FROM (
                 SELECT 
                 DATE(FROM_UNIXTIME(g.create_time) ) AS tmpdate
                 ,SUM(IF(a.STATUS=1,a.unit_price*a.num- a.card_discount_price  - a.discount_price,0)) AS wtkmoney

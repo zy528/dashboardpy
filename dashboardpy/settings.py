@@ -25,7 +25,7 @@ SECRET_KEY = 'h6b&-s$el9e6(b!3)gpa_yp07+a8_6kk$oo=!$lo-n+gurxz!j'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -80,8 +80,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'd_easyhin_stat_ret',
         'USER':'root',
-        'PASSWORD':'welcome123',
-        'HOST': '192.168.1.103',
+        'PASSWORD':'root',
+        'HOST': '120.78.155.70',
         'PORT': '3306',
         'CHARSET':'utf8',
     },
@@ -89,8 +89,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'd_easyhin_his',
         'USER':'root',
-        'PASSWORD':'welcome123',
-        'HOST': '192.168.1.103',
+        'PASSWORD':'root',
+        'HOST': '120.78.155.70',
         'PORT': '3306',
         'CHARSET':'utf8',
     }
@@ -135,6 +135,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+
+
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
+os.path.join(BASE_DIR, 'static'),
 ]
